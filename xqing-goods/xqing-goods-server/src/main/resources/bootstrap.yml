@@ -1,0 +1,59 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: xqing-goods-server
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss.SSS
+    time-zone: GMT+8
+  cloud:
+    nacos:
+      config:
+        server-addr: ${nacos.address}
+        namespace: ${nacos.config-namespace}
+        file-extension: yaml
+      discovery:
+        server-addr: ${nacos.address}
+        namespace: ${nacos.discovery-namespace}
+        group: ${nacos.discovery-namespace}
+logging:
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [%15.15t] %-40.40logger{39} : %X{GLOBAL_REQUEST_ID}%m%n"
+    console: ${logging.pattern.file}
+  file:
+    name: ${user.home}/logs/${spring.application.name}/${spring.application.name}.log
+    max-history: 90
+    max-size: 1GB
+    total-size-cap: 20GB
+  level:
+    com.alibaba.nacos.client.config.impl.ClientWorker: WARN
+    com.alibaba.nacos.client.naming: WARN
+mybatis-plus:
+  mapper-locations: mapper/*.xml
+  global-config:
+    db-config:
+      logic-delete-value: -1
+      logic-not-delete-value: 0
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+---
+spring:
+  profiles: dev
+nacos:
+  address: 127.0.0.1:8848
+  config-namespace: test
+  discovery-namespace: dev
+---
+spring:
+  profiles: test
+nacos:
+  address: 127.0.0.1:8848
+  config-namespace: ${spring.profiles.active}
+  discovery-namespace: ${spring.profiles.active}
+---
+spring:
+  profiles: prod
+nacos:
+  address: 127.0.0.1:8848
+  config-namespace: ${spring.profiles.active}
+  discovery-namespace: ${spring.profiles.active}
