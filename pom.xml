@@ -16,7 +16,7 @@
 
     <properties>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-        <swak.version>2.0.2-SNAPSHOT</swak.version>
+        <swak.version>2.1.1</swak.version>
         <dubbo-spring.version>3.1.5</dubbo-spring.version>
         <spring-cloud-alibaba.version>2.2.9.RELEASE</spring-cloud-alibaba.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
