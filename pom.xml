@@ -9,14 +9,14 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.xqing</groupId>
-    <artifactId>xqing</artifactId>
+    <groupId>com.demo</groupId>
+    <artifactId>demo-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-        <swak.version>2.0.0</swak.version>
+        <swak.version>2.0.2-SNAPSHOT</swak.version>
         <dubbo-spring.version>3.1.5</dubbo-spring.version>
         <spring-cloud-alibaba.version>2.2.9.RELEASE</spring-cloud-alibaba.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
@@ -24,38 +24,40 @@
         <nacos.version>2.1.0</nacos.version>
     </properties>
     <modules>
-        <module>xqing-core</module>
-        <module>xqing-user</module>
-        <module>xqing-infrastructure</module>
-        <module>xqing-goods</module>
+        <module>demo-common</module>
+        <module>demo-infrastructure</module>
+        <module>demo-api</module>
+        <module>demo-app</module>
+        <module>demo-server</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
 
             <dependency>
-                <groupId>com.xqing</groupId>
-                <artifactId>xqing-core</artifactId>
+                <groupId>com.demo</groupId>
+                <artifactId>demo-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.xqing</groupId>
-                <artifactId>xqing-infrastructure</artifactId>
+                <groupId>com.demo</groupId>
+                <artifactId>demo-infrastructure</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.xqing</groupId>
-                <artifactId>xqing-user-api</artifactId>
+                <groupId>com.demo</groupId>
+                <artifactId>demo-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.xqing</groupId>
-                <artifactId>xqing-goods-api</artifactId>
+                <groupId>com.demo</groupId>
+                <artifactId>demo-app</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
 
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
