@@ -40,14 +40,14 @@ mybatis-plus:
 spring:
   profiles: dev
 nacos:
-  address: 124.222.236.78:8848
+  address: 127.0.0.1:8848
   config-namespace: dev
   discovery-namespace: dev
 ---
 spring:
   profiles: test
 nacos:
-  address: 124.222.236.78:8848
+  address: 127.0.0.1:8848
   config-namespace: ${spring.profiles.active}
   discovery-namespace: ${spring.profiles.active}
 ---

@@ -1,5 +1,5 @@
 server:
-  port: 8010
+  port: 8020
   servlet:
     context-path: /api/demo
 spring:
@@ -23,13 +23,16 @@ spring:
       connection-timeout: 60000
       connection-test-query: SELECT 1
 dubbo:
+  application:
+    name: ${spring.application.name}
   scan:
     base-packages: com.demo
   protocol:
-    name: multicast
+    name: dubbo
     port: -1
   registry:
-    address: 127.0.0.1
+    protocol: multicast
+    address: 239.255.255.255:1234
   provider:
     timeout: 10000
   consumer:
