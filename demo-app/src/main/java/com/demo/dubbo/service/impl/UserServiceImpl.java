@@ -36,7 +36,6 @@ import java.util.stream.Collectors;
 @DubboService
 public class UserServiceImpl implements UserService {
 
-
     @Resource
     private MpUserService mpUserService;
 
@@ -46,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserVo selectUserByLoginName(String userName) {
-       return mpUserService.lambdaQuery().eq(SysUser::getLoginName, userName)
+        return mpUserService.lambdaQuery().eq(SysUser::getLoginName, userName)
                 .eq(SysUser::getDelFlag, Married.NO.getValue())
                 .list().stream().findFirst()
                 .map(userConverter::entityToVo).orElse(null);
@@ -64,20 +63,20 @@ public class UserServiceImpl implements UserService {
     public Result<Void> addUser(UserCommand command) {
         //判断用户是否存在
         UserVo oldSysUser = selectUserByLoginName(command.getLoginName());
-        if(Objects.nonNull(oldSysUser)){
+        if (Objects.nonNull(oldSysUser)) {
             //不为空，需要判断是否已经存在
-            return Result.fail(UserResultCode.USER_EXIST.getCode(),"登录账号已存在");
+            return Result.fail(UserResultCode.USER_EXIST.getCode(), "登录账号已存在");
         }
 
-        if(StringUtils.isNotEmpty(command.getPhone())) {
+        if (StringUtils.isNotEmpty(command.getPhone())) {
             oldSysUser = selectUserByPhoneNumber(command.getPhone());
-            if(Objects.nonNull(oldSysUser)){
+            if (Objects.nonNull(oldSysUser)) {
                 //不为空，需要判断是否已经存在
-                return Result.fail(UserResultCode.USER_EXIST.getCode(),"手机号码已存在");
+                return Result.fail(UserResultCode.USER_EXIST.getCode(), "手机号码已存在");
             }
         }
 
-        if(StringUtils.isNotEmpty(command.getEmail())) {
+        if (StringUtils.isNotEmpty(command.getEmail())) {
             if (mpUserService.lambdaQuery()
                     .eq(SysUser::getEmail, command.getEmail())
                     .list().stream().findFirst().isPresent()) {
@@ -89,27 +88,27 @@ public class UserServiceImpl implements UserService {
         newUser.setCreateTime(new Date());
         newUser.setCreatorId(RequestContext.getUserId());
         boolean saved = mpUserService.save(newUser);
-        return saved?Result.success():Result.fail(ResultCode.UPDATE_ERROR);
+        return saved ? Result.success() : Result.fail(ResultCode.UPDATE_ERROR);
     }
 
     @Override
     public Result<Void> updateUser(UserCommand command) {
-        Assert.notNull(command.getUserId(),"用户ID不能为空");
+        Assert.notNull(command.getUserId(), "用户ID不能为空");
         SysUser user = userConverter.toEntity(command);
         user.setModifierId(RequestContext.getUserId());
         user.setModifyTime(new Date());
         user.setId(command.getUserId());
         boolean updated = mpUserService.updateById(user);
-        return updated?Result.success():Result.fail(ResultCode.UPDATE_ERROR);
+        return updated ? Result.success() : Result.fail(ResultCode.UPDATE_ERROR);
     }
 
     @Override
     public Result<Pagination<UserVo>> queryUserList(UserPageReq query) {
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(StringUtils.isNotEmpty(query.getLoginName()),SysUser::getLoginName,query.getLoginName())
-                .eq(StringUtils.isNotEmpty(query.getPhone()),SysUser::getPhone,query.getPhone())
-                .like(StringUtils.isNotEmpty(query.getEmail()),SysUser::getEmail,query.getEmail())
-                .eq(StringUtils.isNotEmpty(query.getStatus()),SysUser::getStatus,query.getStatus());
+        queryWrapper.lambda().eq(StringUtils.isNotEmpty(query.getLoginName()), SysUser::getLoginName, query.getLoginName())
+                .eq(StringUtils.isNotEmpty(query.getPhone()), SysUser::getPhone, query.getPhone())
+                .like(StringUtils.isNotEmpty(query.getEmail()), SysUser::getEmail, query.getEmail())
+                .eq(StringUtils.isNotEmpty(query.getStatus()), SysUser::getStatus, query.getStatus());
         IPage<SysUser> page = mpUserService.page(new Page<>(query.getCurrentPage(), query.getPageSize()), queryWrapper);
 
         List<UserVo> userVos = page.getRecords().stream().map(userConverter::entityToVo).collect(Collectors.toList());

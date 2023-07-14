@@ -12,9 +12,9 @@ spring:
     time-zone: GMT+8
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://124.222.236.78:3306/swak?allowMultiQueries=true&serverTimezone=Asia/Shanghai
-    username: swak
-    password: swak@123
+    url: jdbc:mysql://127.0.0.1:3306/swak?allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 1144257438
     hikari:
       minimum-idle: 5
       maximum-pool-size: 100

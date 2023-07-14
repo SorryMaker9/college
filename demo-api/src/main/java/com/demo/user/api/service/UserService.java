@@ -6,7 +6,6 @@ import com.demo.user.api.request.UserPageReq;
 import com.swak.frame.dto.Pagination;
 import com.swak.frame.dto.Result;
 
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**

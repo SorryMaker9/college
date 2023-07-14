@@ -37,6 +37,11 @@
 			<groupId>io.gitee.mcolley</groupId>
 			<artifactId>swak-common</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus</artifactId>
+			<version>3.4.2</version>
+		</dependency>
 
     </dependencies>
 </project>
